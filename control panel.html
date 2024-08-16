@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-7fV9x2Aua0m7L5t5N+dyNbUdL88k0A8BzwJe4f7sF3ajJpZIC4WReMChujVf7reZIw7LnbWShs2qVhRO5y5iJw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Changa&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+        body {
+            font-family: "Changa", sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            background-color: #0A284E;
+            overflow-x: hidden;
+            transition: width 0.5s ease;
+            padding-top: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media screen and (max-width: 992px) {
+            .sidenav {
+                width: 0;
+            }
+        }
+
+        .navbar-toggler {
+            color: #fff;
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            outline: none;
+        }
+
+        .container-main {
+            padding-right: 0; /* تأكد من عدم وجود padding-right افتراضي */
+            transition: padding-right 0.5s;
+            
+        }
+
+        @media screen and (min-width: 992px) {
+            .container-main {
+                padding-right: 250px; /* زيادة padding-right لتفادي تغطية المحتوى */
+            }
+        }
+
+        .sidenav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            left: auto;
+            position: static;
+            
+            display: flex;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #fff;
+        }
+            @media (min-width: 992px) {
+        .customers-table {
+            width: calc(100% - 250px); /* جعل عرض الجدول يأخذ باقي المساحة عند فتح الحافة الجانبية */
+            margin-left: 250px; /* تحريك الجدول إلى اليمين لتفادي تغطية الحافة الجانبية */
+        }
+    }
+
+    /* تعديل حجم الجدول على شاشات صغيرة */
+    @media (max-width: 991px) {
+        .customers-table {
+            width: 100%; /* جعل الجدول يأخذ العرض الكامل عندما تكون الشاشة صغيرة */
+            margin-left: 0; /* إعادة تعيين التباعد الأيسر للجدول */
+        }
+    }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            left: 25px;
+            font-size: 36px;
+            margin-right: 50px;
+        }
+
+        .nav-icons {
+            display: none;
+        }
+
+        .nav-icons.active {
+            display: block;
+            cursor: pointer;
+        }
+
+        .navbar {
+            background-color: #fff; /* لون خلفية Navbar */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* إضافة ظل للناف بار */
+            position: fixed;
+            width: 100%; /* عرض الناف بار على الشاشة بالكامل */
+            z-index: 2; /* تحديد الترتيب الظاهري فوق الصفحة */
+            top: 0; /* تثبيت الناف بار في أعلى الصفحة */
+            text-align: center; /* محاذاة العناصر في الناف بار بالوسط */
+        }
+
+        .navbar-brand {
+            color: #0A284E; /* لون النص للعلامة التجارية */
+            font-weight: bold; /* سمك الخط */
+            padding: 15px 0; /* تباعد النص داخل العلامة التجارية */
+            display: block; /* عرض العلامة التجارية كعنصر بلوك */
+        }
+
+        .navbar-nav {
+            margin: 0 auto; /* توسيط الروابط داخل الناف بار */
+        }
+
+        .nav-item {
+            display: inline-block; /* عرض العناصر كعناصر متجانسة */
+            margin-left: 20px; /* تباعد بين العناصر */
+            text-align: center;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: #0A284E; /* لون النص للروابط */
+            font-weight: 500; /* سمك الخط */
+            text-decoration: none; /* إزالة تزيين الروابط */
+            padding: 15px 10px; /* تباعد النص داخل الروابط */
+            transition: all 0.3s ease; /* تحويل التحولات لجميع الخصائص */
+            text-align: center;
+            justify-content: center;
+        }
+
+        .nav-link:hover {
+            color: #fff; /* لون النص عند التحويم */
+            border-radius: 5px; /* تدوير الزوايا للروابط عند التحويم */
+        }
+
+        .stats-section {
+            padding: 30px ;
+            text-align: center;
+            font-size: small;
+
+        }
+
+        .stats-card1 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid #0A284E;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats-card2 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid red;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .statss-card2 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            margin-top: 100px;
+            position: relative;
+
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats-card3 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid seagreen;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats-card4 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid #C2E0C6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats-card5 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid #F5D0E8;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats-card6 {
+            background-color: #fff;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid rgb(204,153, 255);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 6px;
+        }
+
+        .requests-section {
+            padding: 50px 0;
+            text-align: right;
+        }
+        .requestss-section {
+            padding:30px 0;
+            margin-top: 40px;
+            text-align: right;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px;
+            padding: 20px;
+            width: auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #333;
+            
+        }
+
+        thead {
+            background-color: #0A284E;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #0A284E;
+            color: white;
+        }
+
+        td {
+            background-color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e2e6ea;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .action-button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 5px;
+        }
+
+     
+      
+        @media (max-width: 768px) {
+            thead {
+                display: none;
+            }
+            tr {
+                display: block;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                text-align: center;
+                background-color: #ffffff;
+                justify-self: center;
+
+                direction: rtl;
+            }
+            td {
+                display: block;
+                text-align: left;
+                position: relative;
+                padding: 12px;
+                border: none;
+                border-bottom: 1px solid #ddd;
+                font-size: 14px;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                right: 0;
+                width: 40%;
+                padding: 10px;
+                font-weight: bold;
+                background-color: #007bff;
+                color: white;
+                border-left: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                white-space: nowrap;
+                text-align: left;
+            }
+
+            .actions {
+                display: block;
+                text-align: left;
+                position: relative;
+                padding: 12px;
+                border: none;
+                border-bottom: 1px solid #ddd;
+                font-size: 14px;
+            }
+
+            .action-button {
+                font-size: 20px;
+                text-align: center;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <style>
+        .custom-nav {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-brand {
+            color: #0A284E;
+            font-weight: bold;
+        }
+
+        .custom-toggler {
+            border: none;
+        }
+
+        .custom-toggler-icon {
+            background-image: url('data:image/svg+xml;charset=UTF8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%280, 0, 0, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .user-info .username {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .user-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #000;
+            text-decoration: none;
+        }
+
+
+        .dropdown-menu i {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="custom-nav navbar-expand-md fixed">
+        <div>
+            <a class="custom-brand" href="index.html">عوده</a>
+        </div>
+        <div class="user-info">
+            <span class="username">شركه ايسر للعقار </span>
+            <img src="images/WhatsApp Image 2024-07-05 at 3.14.02 AM.jpeg" alt="User" class="user-img" onclick="toggleDropdown()">
+            <div class="icon-container">
+            </div>
+            <div class="icon-container">
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="index.html"><i class="fas fa-home"></i>  الرئيسية</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-img')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <div class="sidenav">
+    <div style="text-align: center; margin-bottom: 30px; ">
+        <img src="images/Asset 1.png"  width="100px" height=""  style="justify-content: center;  margin: auto;" alt="">
+
+    </div>
+    <style>
+        /* أسلوب اختياري لتخصيص حجم الأيقونات */
+        .fa {
+            font-size: 24px;
+            margin-right: 5px; /* تعديل حسب الحاجة */
+        }
+        
+
+
+
+/* عرض القسم النشط */
+#stats-section.active, #card-section.active {
+    display: block;
+}
+
+.buttonn.show-cards::after {
+    content: "→"; /* رمز السهم للتبديل */
+}
+
+.buttonn.hide-cards::after {
+    content: "✖"; /* رمز إغلاق */
+    font-size: 16px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: none;
+}
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-align: right;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+a:hover, a:focus {
+    background-color: #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
+
+a:active {
+    background-color: #004080;
+    box-shadow: none;
+}
+#home-button, #toggle-button {
+    position: relative; /* أو absolute حسب الحاجة */
+    margin: 0; /* إزالة أي هوامش غير مرغوب فيها */
+}
+
+
+
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <a href="#" id="home-button" >  <i class="fas fa-home" style="margin-top: 2px ; padding: 2px; box-sizing: border-box;"></i> الرئيسية  </a> 
+    <a href="#" onclick="openForm()">      <i class="fas fa-users" style="margin-top: 3px ; padding: 2px;"></i>
+        اضافه مشروع</a>
+    <a href="#" id="toggle-button" class="show-cards">      <i class="fas fa-tasks" style="margin-top: 3px ; padding: 2px;"></i>
+         مشاريع تم اضافتها   </a>
+
+
+
+<a href="#" id="set-btn" >    <i class="fas fa-cog" style="margin-top: 3px ; padding: 2px;"></i>
+    اعداد من نحن    </a>
+    <a href="#" id="show-section"><i class="fas fa-tools" style="margin-top: 3px; padding: 2px;"></i> اعداد خصائص المشاريع</a>
+    <a href="#" id="add">    <i class="far fa-calendar-check" style="margin-top: 3px ; padding: 2px;"></i>
+        حجوزات    </a>
+            <a href="#" id="slide-section">    <i class="far fa-image" style="margin-top: 3px ; padding: 2px;"></i>
+        صور    </a>
+
+</div>
+<script>
+document.getElementById('set-btn').addEventListener('click', function(e) {
+    e.preventDefault(); // لمنع الانتقال إلى الرابط
+
+    // إخفاء جميع الأقسام
+    document.getElementById('stats-section').style.display = 'none';
+    document.getElementById('card-section').style.display = 'none';
+    document.getElementById('table').style.display = 'none';
+    document.getElementById('set-section').style.display = 'block';
+
+    document.getElementById('show').style.display = 'none';
+    document.getElementById('slide').style.display = 'none';
+
+    // عرض قسم "set-section" فقط
+    document.getElementById('set-section').style.display = 'block';
+});
+
+
+document.getElementById('toggle-button').addEventListener('click', function(e) {
+    e.preventDefault(); // لمنع الانتقال إلى الرابط
+
+    // إخفاء قسم الإحصائيات وعرض قسم الكروت
+    document.getElementById('stats-section').style.display = 'none';
+    document.getElementById('table').style.display = 'none';
+    document.getElementById('set-section').style.display = 'none';
+    document.getElementById('show').style.display = 'none';
+    document.getElementById('slide').style.display = 'none';
+    document.getElementById('card-section').style.display = 'block';
+
+    // إخفاء زر "مشاريع تم إضافتها" وعرض زر "الرئيسية"
+    document.getElementById('home-button').style.display = 'block';
+});
+
+// عند الضغط على زر "الرئيسية"
+document.getElementById('home-button').addEventListener('click', function(e) {
+    e.preventDefault(); // لمنع الانتقال إلى الرابط
+
+    // عرض قسم الإحصائيات وإخفاء قسم الكروت
+    document.getElementById('stats-section').style.display = 'block';
+    document.getElementById('table').style.display = 'block';
+    document.getElementById('card-section').style.display = 'none';
+    document.getElementById('show').style.display = 'none';
+    document.getElementById('slide').style.display = 'none';
+
+    // عرض زر "مشاريع تم إضافتها" وإخفاء زر "الرئيسية"
+    document.getElementById('toggle-button').style.display = 'block';
+});
+document.getElementById('add').addEventListener('click', function(e) {
+    document.getElementById('card-section').style.display = 'none';
+    document.getElementById('stats-section').style.display = 'none';
+    document.getElementById('set-section').style.display = 'none';
+    document.getElementById('show').style.display = 'none';
+    document.getElementById('slide').style.display = 'none';
+    document.getElementById('table').style.display = 'block';
+});
+    e.preventDefault(); // لمنع الانتقال إلى الرابط
+</script>
+<script>
+    document.getElementById('show-section').addEventListener('click', function(e) {
+        e.preventDefault(); // لمنع الانتقال إلى الرابط
+    
+        // إخفاء جميع الأقسام
+        document.getElementById('stats-section').style.display = 'none';
+        document.getElementById('card-section').style.display = 'none';
+        document.getElementById('table').style.display = 'none';
+        document.getElementById('show').style.display = 'none';
+        document.getElementById('slide').style.display = 'none';
+        document.getElementById('set-section').style.display = 'none';
+        // عرض قسم "show" فقط
+        document.getElementById('show').style.display = 'block';
+    });
+    </script>
+ <div class="container-main">
+
+    <div class="stats-section" id="stats-section">
+        <div class="container">
+            <div class="requestss-section">
+                <div class="container">
+                    <h2> الاحصائيات</h2>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stats-card1">
+                        <h5> اجمالي الطلبات: 234</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card2">
+                        <h5>  مشاريع تم رفعها: 36</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card3">
+                        <h5> عدد المستخدمين : 257</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- الأسطر الإضافية للإحصائيات -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stats-card4">
+                        <h5>تم الموافقه: 0</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card5">
+                        <h5>تم البيع: 0 </h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card6">
+                        <h5>خيارات اخري </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stats-section" id="show" style="display: none; margin-top: 40px;">
+        <div class="container">
+            <div class="faq">
+                <h2 style="text-align: right;">
+                    <i class="fas fa-tools" style="margin-top: 3px; padding: 2px;"></i> اعداد خصائص المشاريع 
+                </h2>
+                <br>
+                <div class="features-section">
+                    <div class="feature-item">
+                        <i class="fas fa-handshake"></i>
+                        <input type="text" value="1 سنة" class="feature-input">
+                        <input type="text" value="اتحاد ملاك مجاناً" class="feature-input">
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <input type="text" value="5 سنوات" class="feature-input">
+                        <input type="text" value="كهرباء وسباكة" class="feature-input">
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tools"></i>
+                        <input type="text" value="20 سنة" class="feature-input">
+                        <input type="text" value="هيكل إنشائي" class="feature-input">
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-plug"></i>
+                        <input type="text" value="25 سنة" class="feature-input">
+                        <input type="text" value="قواطع وأفياش" class="feature-input">
+                    </div>
+                </div>
+                <br><br><br><br>
+                <div class="container">
+                    <div class="box-container">
+                        <div class="row">
+                            <div class="col-md-4 features-title" style="color:#A19781;">
+                                الخصائص والمميزات
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="features-list">
+                                    <li class="item"><input type="text" class="input-item" value="البند 1"></li>
+                                    <li class="item"><input type="text" class="input-item" value="البند 2"></li>
+                                    <li class="item"><input type="text" class="input-item" value="البند 3"></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="features-list">
+                                    <li class="item"><input type="text" class="input-item" value="البند 1"></li>
+                                    <li class="item"><input type="text" class="input-item" value="البند 2"></li>
+                                    <li class="item"><input type="text" class="input-item" value="البند 3"></li>
+                                </ul>
+                            </div>
+                            <button class="edit-button">تعديل</button>
+
+                        </div>
+                    </div>
+                </div><!-- container -->
+            </div><!-- faq -->
+        </div><!-- container -->
+    </div><!-- show-section -->
+    <style>
+        .image-slider {
+            direction: rtl; /* لتوافق الاتجاه العربي */
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .imgg { /* تم تغيير الاسم إلى imgg */
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 100px;
+            text-align: center;
+            background-color: #f7f7f7;
+            position: relative;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 0 auto 20px;
+            cursor: pointer;
+        }
+
+  
+        .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .prev {
+            right: 10px; /* تغيير الاتجاه */
+        }
+
+        .next {
+            left: 10px; /* تغيير الاتجاه */
+        }
+
+        .nav:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        img {
+            max-height: 300px;
+            object-fit: cover;
+            text-align: center;
+justify-content: center;
+            border-radius: 10px;
+        }
+
+
+        .edit-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+  <script>
+      let currentSlide = 0;
+
+function previewImage(event, slideNumber) {
+    const reader = new FileReader();
+    reader.onload = function () {
+        const img = document.getElementById(`preview${slideNumber}`);
+        img.src = reader.result;
+        img.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+function changeSlide(direction) {
+    const slides = document.querySelector('.slide-track');
+    const totalSlides = document.querySelectorAll('.imgg').length; // تغيير selector إلى imgg
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    const offset = currentSlide * 100; 
+    slides.style.transform = `translateX(${offset}%)`;
+}
+
+function editImages() {
+    alert('زر "تعديل" تم الضغط عليه');
+}
+</script>
+<script>
+    document.getElementById('slide-section').addEventListener('click', function(e) {
+        e.preventDefault(); // لمنع الانتقال إلى الرابط
+    
+        // إخفاء جميع الأقسام
+        document.getElementById('stats-section').style.display = 'none';
+        document.getElementById('card-section').style.display = 'none';
+        document.getElementById('table').style.display = 'none';
+        document.getElementById('show').style.display = 'none';
+        document.getElementById('slide').style.display = 'block';
+    
+        // عرض قسم "show" فقط
+        document.getElementById('slide').style.display = 'block';
+    });
+    </script>
+
+          <!-- قسم العرض -->
+
+          <div class="stats-section" id="slide" style="display: none; margin-top: 40px;">
+            <div class="container">
+                <div class="faq">
+                    <h2 style="text-align: right;">
+                        <i class="fas fa-image" style="margin-top: 3px; padding: 2px;"></i> اعداد صور الصفحه الرئيسيه
+                    </h2>
+                    <br>
+                    <div class="image-slider">
+                        <div class="slide-track">
+                            <div class="imgg" id="slide1">
+                                <input type="file" accept="image/*" onchange="previewImage(event, 1)"  >
+                                <img id="preview1" src="" alt="Preview 1"  style="width: 100%;" >
+                            </div>
+                            <div class="imgg" id="slide2">
+                                <input type="file" accept="image/*" onchange="previewImage(event, 2)">
+                                <img id="preview2" src="" alt="Preview 2"  style="width: 100%;" >
+                            </div>
+                            <div class="imgg" id="slide3">
+                                <input type="file" accept="im  age/*" onchange="previewImage(event, 3)">
+                                <img id="preview3" src="" alt="Preview 3"  style="width: 100%;" >
+                            </div>
+                            <div class="imgg" id="slide4">
+                                <input type="file" accept="image/*" onchange="previewImage(event, 4)">
+                                <img id="preview4" src="" alt="Preview 4  " style="width: 100%;">
+                            </div>
+                        </div>
+                        <button class="nav prev" onclick="changeSlide(-1)">&#10094;</button>
+                        <button class="nav next" onclick="changeSlide(1)">&#10095;</button>
+                    </div>
+                    <button class="edit-button" onclick="editImages()">تعديل</button>
+                
+                
+                </div><!-- faq -->
+            </div><!-- container -->
+        </div><!-- show-section -->
+    <style>
+        .registration-form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+        }
+      
+        .form-text-section {
+            width: 50%;
+            padding-right: 10px;
+            margin-top: 75px;
+        }
+      
+        .form-text-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+      
+        .form-text-section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+      
+        .form-group {
+            margin-bottom: 20px;
+        }
+      
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+      
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+      
+        .form-group textarea {
+            height: 100px;
+        }
+      
+        .form-image-section {
+            width: 50%;
+            text-align: center;
+        }
+      
+        .form-image-section img {
+            width: 80%;
+            height: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+        }
+      
+        .form-submit-btn {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #00A99D;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+      
+        @media screen and (max-width: 768px) {
+            .registration-form-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+      
+            .form-text-section, .form-image-section {
+                width: 100%;
+                padding: 0;
+            }
+      
+            .form-text-section {
+                margin-bottom: 20px;
+            }
+        }
+      </style>
+    <div class="container">
+<div  id="card-section" style="display: none;">
+    <div class="row" >
+        <div class="col-md-6">
+            <div class="statss-card2">
+                <div class="card">
+               
+                      <img src="images/pexels-rachel-claire-4846097.jpg" alt="برج سكني">
+        
+              
+                    <h3>
+                        برج سكني
+                        <div class="actions">
+                            <button><i class="fas fa-edit" style="color: #00bcd4;"></i></button>
+                            <button><i class="fas fa-trash" style="color: red;"></i></button>
+                        </div>
+                    </h3>                      <table>
+                          <tr>
+                              <th>نوع المشروع</th>
+                              <td>سكني</td>
+                          </tr>
+                          <tr>
+                              <th>وصف المشروع</th>
+                              <td>شقق</td>
+                          </tr>
+                          <tr>
+                              <th>حالة البيع</th>
+                              <td>على المخطط</td>
+                          </tr>
+                          <tr>
+                              <th>الموقع</th>
+                              <td>شمال الرياض</td>
+                          </tr>
+                          <tr>
+                              <th>نسبة الإنجاز</th>
+                              <td>5%</td>
+                          </tr>
+                      </table>
+                  </div>      
+                      </div>
+        </div>
+        <div class="col-md-6">
+            <div class="statss-card2">
+                <div class="card">
+               
+                      <img src="images/pexels-rachel-claire-4846097.jpg" alt="برج سكني">
+        
+              
+                    <h3>
+                        برج سكني
+                        <div class="actions">
+                            <button><i class="fas fa-edit" style="color: #00bcd4;"></i></button>
+                            <button><i class="fas fa-trash" style="color: red;"></i></button>
+                        </div>
+                    </h3>                      <table>
+                          <tr>
+                              <th>نوع المشروع</th>
+                              <td>سكني</td>
+                          </tr>
+                          <tr>
+                              <th>وصف المشروع</th>
+                              <td>شقق</td>
+                          </tr>
+                          <tr>
+                              <th>حالة البيع</th>
+                              <td>على المخطط</td>
+                          </tr>
+                          <tr>
+                              <th>الموقع</th>
+                              <td>شمال الرياض</td>
+                          </tr>
+                          <tr>
+                              <th>نسبة الإنجاز</th>
+                              <td>5%</td>
+                          </tr>
+                      </table>
+                  </div>      
+                      </div>
+        </div>
+        <div class="col-md-6">
+            <div class="statss-card2">
+                <div class="card">
+               
+                      <img src="images/pexels-rachel-claire-4846097.jpg" alt="برج سكني">
+        
+               
+                    <h3>
+                        برج سكني
+                        <div class="actions">
+                            <button><i class="fas fa-edit" style="color: #00bcd4;"></i></button>
+                            <button><i class="fas fa-trash" style="color: red;"></i></button>
+                        </div>
+                    </h3>
+                      <table>
+                          <tr>
+                              <th>نوع المشروع</th>
+                              <td>سكني</td>
+                          </tr>
+                          <tr>
+                              <th>وصف المشروع</th>
+                              <td>شقق</td>
+                          </tr>
+                          <tr>
+                              <th>حالة البيع</th>
+                              <td>على المخطط</td>
+                          </tr>
+                          <tr>
+                              <th>الموقع</th>
+                              <td>شمال الرياض</td>
+                          </tr>
+                          <tr>
+                              <th>نسبة الإنجاز</th>
+                              <td>5%</td>
+                          </tr>
+                      </table>
+                  </div>      
+                      </div>
+        </div>
+      
+    </div>
+</div>
+    </div>
+    <style>
+              .card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin: 10px 15px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card .actions button {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .card table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            text-align: right;
+        }
+
+        .card table th, .card table td {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .card table th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .card table td {
+            color: #666;
+        }
+
+        .close-cards-btn {
+            margin: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+        }
+
+        @media screen and (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <div class="" id="table" style="margin-top: 40px;">
+    <div class="requests-section">
+        <div class="container">
+            <h2>آخر الطلبات</h2>
+            <p>قائمة بآخر الطلبات التي تلقيناها.</p>
+        </div>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr style="text-align: center;">
+                    <th>رقم العقار</th>
+                    <th>اسم العقار</th>
+                    <th>الموقع</th>
+                    <th>السعر</th>
+                    <th>المساحة</th>
+                    <th>عدد الغرف</th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="رقم العقار">1</td>
+                    <td data-label="اسم العقار">فيلا فاخرة</td>
+                    <td data-label="الموقع">الرياض</td>
+                    <td data-label="السعر">2,000,000 SAR</td>
+                    <td data-label="المساحة">500 م²</td>
+                    <td data-label="عدد الغرف">5</td>
+                    <td class="actions">
+                        <button class="action-button delete-button"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="رقم العقار">1</td>
+                    <td data-label="اسم العقار">فيلا فاخرة</td>
+                    <td data-label="الموقع">الرياض</td>
+                    <td data-label="السعر">2,000,000 SAR</td>
+                    <td data-label="المساحة">500 م²</td>
+                    <td data-label="عدد الغرف">5</td>
+                    <td class="actions">
+                        <button class="action-button delete-button"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="رقم العقار">1</td>
+                    <td data-label="اسم العقار">فيلا فاخرة</td>
+                    <td data-label="الموقع">الرياض</td>
+                    <td data-label="السعر">2,000,000 SAR</td>
+                    <td data-label="المساحة">500 م²</td>
+                    <td data-label="عدد الغرف">5</td>
+                    <td class="actions">
+                        <button class="action-button delete-button"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="رقم العقار">1</td>
+                    <td data-label="اسم العقار">فيلا فاخرة</td>
+                    <td data-label="الموقع">الرياض</td>
+                    <td data-label="السعر">2,000,000 SAR</td>
+                    <td data-label="المساحة">500 م²</td>
+                    <td data-label="عدد الغرف">5</td>
+                    <td class="actions">
+                        <button class="action-button delete-button"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="رقم العقار">2</td>
+                    <td data-label="اسم العقار">شقة حديثة</td>
+                    <td data-label="الموقع">جدة</td>
+                    <td data-label="السعر">1,200,000 SAR</td>
+                    <td data-label="المساحة">200 م²</td>
+                    <td data-label="عدد الغرف">3</td>
+                    <td class="actions">
+                        <button class="action-button delete-button"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                <!-- أضف المزيد من الصفوف هنا -->
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+    <div class="stats-section"id="set-section" style="margin-top: 40px; display: none;   "  >
+        <div class="container">
+            <div class="faq">
+                <h2 style="text-align: right;">
+                    <i class="fas fa-cog" style="margin-top: 3px; padding: 2px;"></i> اعداد من نحن
+                </h2>
+                <br>
+                </div>
+                
+                        <div class="registration-form-container">
+                            <div class="form-image-section">
+                                <img id="current-image" src="images/pexels-alex-qian-1180283-2343465.jpg" alt="صورة المبنى">
+                            </div>
+                            <div class="form-text-section">
+                                <h2 id="form-title">تضع الشركة نخبة من الخبراء والمختصين</h2>
+                                <p id="form-description">تدرس كافة العروض والمشاريع في السوق العقاري والاختيار الأمثل والأسس والكثر لخدمة العملاء والمستثمرين بناءً على أسس ومعايير علمية.</p>
+                                <form id="update-form">
+                                    <div class="form-group">
+                                        <label for="title">العنوان</label>
+                                        <input type="text" id="title" name="title" placeholder="تضع الشركة نخبة من الخبراء والمختصين" value="تضع الشركة نخبة من الخبراء والمختصين">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">الوصف</label>
+                                        <textarea id="description" name="description" placeholder="تدرس كافة العروض والمشاريع في السوق العقاري والاختيار الأمثل والأسس والكثر لخدمة العملاء والمستثمرين بناءً على أسس ومعايير علمية.">تدرس كافة العروض والمشاريع في السوق العقاري والاختيار الأمثل والأسس والكثر لخدمة العملاء والمستثمرين بناءً على أسس ومعايير علمية.</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image-upload">تحميل صورة جديدة</label>
+                                        <input type="file" id="image-upload" name="image-upload" accept="image/*" onchange="previewImage(event)">
+                                    </div>
+                                    <button type="submit" class="form-submit-btn">تحديث</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- container -->
+    </div><!-- set -->
+
+    
+</div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidenav = document.querySelector('.sidenav');
+            const navIcons = document.querySelector('.navbar-toggler');
+            const closeBtn = document.querySelector('.closebtn');
+    
+            // فتح القائمة الجانبية من اليمين
+            navIcons.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    sidenav.style.width = '250px'; // تعيين عرض القائمة على الشاشات الصغيرة
+                }
+            });
+    
+       
+        function openNav() {
+        document.getElementById(".sidenav").style.width = "250px";
+        document.getElementById("main").style.marginRight = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById(".sidenav").style.width = "0";
+        document.getElementById("main").style.marginRight = "0";
+    }
+    
+        // فتح القائمة الجانبية عند النقر على الايقونة
+        navbarToggler.addEventListener('click', function() {
+            sidenav.style.width = '250px';
+        });
+
+    </script>
+
+    
+    <!-- Form Overlay -->
+    <div class="form-overlay" id="formOverlay">
+        <div class="form-container">
+            <button class="close-button" onclick="closeForm()">&times;</button>
+            <img src="images/WhatsApp Image 2024-06-14 at 8.23.00 PM.jpeg" alt="Logo">
+            <h3>تسجيل الدخول وإدخال المتطلبات</h3>
+            <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-sections">
+                    <div class="form-section">
+                        <label for="image1">الصوره:</label>
+                        <input type="file" id="image1" name="image1" accept="image/*" required>
+                    </div>
+                    <div class="form-section">
+                        <label for="username">عنوان البوست</label>
+                        <input type="text" id="username" name="title" required>
+                    </div>
+                    <div class="form-section">
+                        <label for="password">نوع المشروع</label>
+                        <input type="text" id="password" name="textarea" required>
+                    </div>
+                    <div class="form-section">
+                        <label for="field2">حاله المشروع</label>
+                        <input type="text" id="field2" name="country" required>
+                    </div>
+                    <div class="form-section">
+                        <label for="field3">الموقع</label>
+                        <input type="text" id="field3" name="area" required>
+                    </div>
+                    <div class="form-section">
+                        <label for="floors">نسبه الانجاز</label>
+                        <input type="text" id="floors" name="floors" required>
+                    </div>
+                </div>
+                <button type="submit">إرسال وتسجيل</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the form overlay
+        function openForm() {
+            document.getElementById('formOverlay').style.display = 'flex';
+        }
+
+        // Function to close the form overlay
+        function closeForm() {
+            document.getElementById('formOverlay').style.display = 'none';
+        }
+    </script>
+    <style>
+        /* Styling for the form overlay */
+        .form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Styling for the form container */
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Flexbox to align form sections */
+        .form-sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        /* Styling each form section */
+        .form-section {
+            flex: 1;
+            min-width: 30%;
+            max-width: calc(33% - 20px);
+            direction: rtl;
+text-align: right;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 10px;
+            color: #495057;
+            font-size: 16px;
+            font-weight: 500;
+            direction: rtl;
+        }
+
+        .form-section input[type="text"],
+        .form-section input[type="password"],
+        .form-section input[type="file"] {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .form-container button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        /* Close button styling */
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: black;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 8px;
+            margin: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+   
+   
+        }
+
+
+
+        /* Styling for the button that opens the form */
+        .open-form-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 1100;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .open-form-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Logo Styling */
+        .form-container img {
+            max-width: 100px; /* Adjust size of the logo */
+            margin-bottom: 20px;
+        }
+    </style>
+    <style>
+        .features-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: right;
+            justify-content: space-between;
+            cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            width: 200px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .feature-item i {
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        .feature-input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            background-color: #fff;
+        }
+
+        .feature-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .edit-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .item {
+            margin-bottom: 10px;
+        }
+
+        .input-item {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-item:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        box-container {
+   border: 2px solid #ddd; /* إطار خفيف وأنيق */
+   padding: 30px; /* تباعد داخلي مريح */
+   background-color: #fff; /* خلفية بيضاء نقية */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل ناعم لإضفاء عمق */
+   border-radius: 10px; /* زوايا مستديرة */
+   box-sizing: border-box; /* احتساب الإطار ضمن الأبعاد */
+   max-width: 900px; /* تحديد عرض البوكس */
+   margin: auto; /* تمركز البوكس */
+}
+
+.features-title {
+   font-size: 28px; /* تكبير حجم النص */
+   font-weight: bold; /* جعل النص غامقًا */
+   color: #333; /* لون النص */
+   margin-bottom: 20px; /* تباعد سفلي */
+   text-align: center; /* توسيط النص */
+   border-bottom: 2px solid #ddd; /* خط سفلي أنيق */
+   padding-bottom: 10px; /* تباعد داخلي سفلي */
+}
+
+.features-list {
+   list-style-type: none; /* إزالة النقاط الافتراضية */
+   padding-right: 0; /* إزالة التباعد من اليمين */
+   padding-left: 0; /* إزالة التباعد من اليسار */
+}
+
+.features-list li {
+   position: relative; /* لتنسيق الأيقونة المخصصة */
+   padding-right: 25px; /* تباعد داخلي قبل النص من اليمين */
+   margin-bottom: 15px; /* تباعد بين العناصر */
+   font-size: 16px; /* حجم الخط */
+   color: #555; /* لون النص */
+}
+
+.features-list li::before {
+   content: "\2022"; /* رمز الدائرة */
+   position: absolute; 
+   right: 0; 
+   top: 0;
+   color: #A19781; /* لون الدائرة */
+   font-size: 20px; /* حجم الدائرة */
+   line-height: 1; /* ضبط محاذاة الدائرة */
+}
+    </style>
+</body>
+</html>
